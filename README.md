@@ -1,6 +1,9 @@
 
 # CEFET
 
+
+FASE 1
+
 Bezier Cubica (processing)----------------------------------------------------------------------------------------
   
   Clique e arraste os pontos acima e abaixo das curvas para manipulá-las.
@@ -22,3 +25,26 @@ Paraboloide equação implicita (python)----------------------------------------
 Paraboloide de revolução (python)---------------------------------------------------------------------------------
 
   Apenas rode o programa
+  
+  
+FASE 2
+  
+Textura dado (textura.py)(python)---------------------------------------------------------------------------------
+
+  Aperte x,y ou z para definir o axis de rotação
+  Aperte seta para cima,baixo,esquerda ou direita para rodar o dado
+  
+Textura mapa (esfera_texturizada.py)(python)----------------------------------------------------------------------
+
+  aperte o botao esquerdo do mouse para girar o mapa
+  aperte o botao direito do mouse para arrastar o mapa
+  
+Prisma iluminado (python)-----------------------------------------------------------------------------------------
+
+  apenas rode o programa
+
+Tronco iluminado (python)-----------------------------------------------------------------------------------------
+
+  apenas rode o programa
+  
+------------------------------------------------------------------------------------------------------------------
