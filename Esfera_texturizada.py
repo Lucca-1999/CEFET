@@ -1,6 +1,6 @@
-import OpenGL.GLUT as GLUT
-import OpenGL.GLU as GLU
-import OpenGL.GL as GL
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
+from OpenGL.GL import *
 from png import Reader
 from sys import argv
 from math import sin, cos, pi
@@ -23,7 +23,7 @@ down_x, down_y = 0, 0
 # Colors
 
 # Background Color RGBA
-background_color = (0.184, 0.211, 0.250, 1)
+background_color = (0, 0, 0, 1)
 
 # Figure vars
 
@@ -62,80 +62,80 @@ texture = []
 
 def load_textures():
     global texture
-    texture = GL.glGenTextures(2)
+    texture = glGenTextures(2)
 
     png_img = Reader(filename='mapa.png')
 
     w, h, pixels, metadata = png_img.read_flat()
 
     if(metadata['alpha']):
-        modo = GL.GL_RGBA
+        modo = GL_RGBA
     else:
-        modo = GL.GL_RGB
+        modo = GL_RGB
 
-    GL.glBindTexture(GL.GL_TEXTURE_2D, texture[0])
-    GL.glPixelStorei(GL.GL_UNPACK_ALIGNMENT, 1)
-    GL.glTexImage2D(GL.GL_TEXTURE_2D, 0, modo, w, h, 0, modo, GL.GL_UNSIGNED_BYTE, pixels.tolist())
-    GL.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT)
-    GL.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT)
-    GL.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST)
-    GL.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST)
-    GL.glTexEnvf(GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_DECAL)
+    glBindTexture(GL_TEXTURE_2D, texture[0])
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+    glTexImage2D(GL_TEXTURE_2D, 0, modo, w, h, 0, modo, GL_UNSIGNED_BYTE, pixels.tolist())
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
 
 
 def figure():
     
-    GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)    
-    GL.glLoadIdentity()    
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)    
+    glLoadIdentity()    
     
-    GL.glPushMatrix()
+    glPushMatrix()
 
     # Translation and Zoom
-    GL.glTranslatef(delta_x, delta_y, delta_z)
+    glTranslatef(delta_x, delta_y, delta_z)
 
     # Rotation
     # X axis
-    GL.glRotatef(alpha, 0.0, 1.0, 0.0)
+    glRotatef(alpha, 0.0, 1.0, 0.0)
     # Y axis
-    GL.glRotatef(beta, 0.0, 0.0, 1.0)
+    glRotatef(beta, 0.0, 0.0, 1.0)
 
     # Figure
-    GL.glBindTexture(GL.GL_TEXTURE_2D, texture[0])
+    glBindTexture(GL_TEXTURE_2D, texture[0])
     for i in range(n):
-        GL.glBegin(GL.GL_QUAD_STRIP)
+        glBegin(GL_QUAD_STRIP)
         for j in range(m):
             
             x, y, z, s, t = f(i,j)
-            GL.glTexCoord2f(s, t)
-            GL.glVertex3f(x,y,z)
+            glTexCoord2f(s, t)
+            glVertex3f(x,y,z)
 
 
             x, y, z, s, t = f(i+1, j)
-            GL.glTexCoord2f(s, t)
-            GL.glVertex3f(x,y,z)
-        GL.glEnd()
+            glTexCoord2f(s, t)
+            glVertex3f(x,y,z)
+        glEnd()
 
-    GL.glPopMatrix()
+    glPopMatrix()
 
-    GLUT.glutSwapBuffers()
+    glutSwapBuffers()
 
 
 def draw():
     global alpha, left_button, right_button
 
-    GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     figure()
 
     # Auto-Rotation
     alpha = alpha + delta_alpha
 
-    GLUT.glutSwapBuffers()
+    glutSwapBuffers()
 
 
 def timer(i):
-    GLUT.glutPostRedisplay()
-    GLUT.glutTimerFunc(10, timer, 1)
+    glutPostRedisplay()
+    glutTimerFunc(10, timer, 1)
 
 
 def special_key_pressed(key, x, y):
@@ -150,7 +150,7 @@ def key_pressed(key, x, y):
     global delta_alpha
 
     if key == b"\033":
-        GLUT.glutLeaveMainLoop()
+        glutLeaveMainLoop()
 
     # Toggles Rotation
     elif key == b" ":
@@ -165,13 +165,13 @@ def mouse_click(button, state, x, y):
 
     down_x, down_y = x, y
 
-    left_button = button == GLUT.GLUT_LEFT_BUTTON and state == GLUT.GLUT_DOWN
-    right_button = button == GLUT.GLUT_RIGHT_BUTTON and state == GLUT.GLUT_DOWN
+    left_button = button == GLUT_LEFT_BUTTON and state == GLUT_DOWN
+    right_button = button == GLUT_RIGHT_BUTTON and state == GLUT_DOWN
 
     # Zoom
-    if button == 3 and state == GLUT.GLUT_DOWN:
+    if button == 3 and state == GLUT_DOWN:
         delta_z += 1
-    elif button == 4 and state == GLUT.GLUT_DOWN:
+    elif button == 4 and state == GLUT_DOWN:
         delta_z -= 1
 
 
@@ -209,58 +209,58 @@ def mouse_move(x, y):
 
     down_x, down_y = x, y
 
-    GLUT.glutPostRedisplay()
+    glutPostRedisplay()
 
 
 def main():    
-    GLUT.glutInit(argv)
-    GLUT.glutInitDisplayMode(
-        GLUT.GLUT_DOUBLE | GLUT.GLUT_RGBA | GLUT.GLUT_DEPTH | GLUT.GLUT_MULTISAMPLE
+    glutInit(argv)
+    glutInitDisplayMode(
+        GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE
     )
 
     # Creating a screen with good resolution proportions
-    screen_width = GLUT.glutGet(GLUT.GLUT_SCREEN_WIDTH)
-    screen_height = GLUT.glutGet(GLUT.GLUT_SCREEN_HEIGHT)
+    screen_width = glutGet(GLUT_SCREEN_WIDTH)
+    screen_height = glutGet(GLUT_SCREEN_HEIGHT)
 
     window_width = round(2 * screen_width / 3)
     window_height = round(2 * screen_height / 3)
 
-    GLUT.glutInitWindowSize(window_width, window_height)
-    GLUT.glutInitWindowPosition(
+    glutInitWindowSize(window_width, window_height)
+    glutInitWindowPosition(
         round((screen_width - window_width) / 2), round((screen_height - window_height) / 2)
     )
-    GLUT.glutCreateWindow(window_name)
+    glutCreateWindow(window_name)
 
     # Drawing Function
-    GLUT.glutDisplayFunc(draw)
+    glutDisplayFunc(draw)
 
     # Input Functions
-    GLUT.glutSpecialFunc(special_key_pressed)
-    GLUT.glutKeyboardFunc(key_pressed)
-    GLUT.glutMouseFunc(mouse_click)
-    GLUT.glutMotionFunc(mouse_move)
+    glutSpecialFunc(special_key_pressed)
+    glutKeyboardFunc(key_pressed)
+    glutMouseFunc(mouse_click)
+    glutMotionFunc(mouse_move)
 
     load_textures()
 
-    GL.glEnable(GL.GL_MULTISAMPLE)
-    GL.glEnable(GL.GL_DEPTH_TEST)
-    GL.glEnable(GL.GL_TEXTURE_2D)
+    glEnable(GL_MULTISAMPLE)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_TEXTURE_2D)
 
-    GL.glClearColor(*background_color)
-    GL.glClearDepth(1.0)
-    GL.glDepthFunc(GL.GL_LESS)
+    glClearColor(*background_color)
+    glClearDepth(1.0)
+    glDepthFunc(GL_LESS)
 
-    GL.glShadeModel(GL.GL_SMOOTH)
-    GL.glMatrixMode(GL.GL_PROJECTION)
+    glShadeModel(GL_SMOOTH)
+    glMatrixMode(GL_PROJECTION)
 
     # Pre-render camera positioning
-    GLU.gluPerspective(-45, window_width / window_height, 0.1, 100.0)
-    GL.glTranslatef(0.0, 0.0, -10)
+    gluPerspective(-45, window_width / window_height, 0.1, 100.0)
+    glTranslatef(0.0, 0.0, -10)
 
-    GL.glMatrixMode(GL.GL_MODELVIEW)
+    glMatrixMode(GL_MODELVIEW)
 
-    GLUT.glutTimerFunc(10, timer, 1)
-    GLUT.glutMainLoop()
+    glutTimerFunc(10, timer, 1)
+    glutMainLoop()
 
 
 if(__name__ == '__main__'):
