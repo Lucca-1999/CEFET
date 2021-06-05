@@ -26,24 +26,29 @@ Paraboloide de revolução (python)---------------------------------------------
 
   Apenas rode o programa
   
-  
+ -----------------------------------------------------------------------------------------------------------------
+ 
 FASE 2
   
 Textura dado (textura.py)(python)---------------------------------------------------------------------------------
 
-  Aperte x,y ou z para definir o axis de rotação
+  Aperte x, y ou z para definir o axis de rotação
   Aperte seta para cima,baixo,esquerda ou direita para rodar o dado
+  
+Tronco de Pirâmide com a textura de pedras(tronco_pedras.py)(python)----------------------------------------------
+  
+  Apenas rode o programa
   
 Textura mapa (esfera_texturizada.py)(python)----------------------------------------------------------------------
 
   aperte o botao esquerdo do mouse para girar o mapa
   aperte o botao direito do mouse para arrastar o mapa
   
-Prisma iluminado (python)-----------------------------------------------------------------------------------------
+Prisma iluminado (poligono_iluminado_prisma.py)(python)-----------------------------------------------------------
 
   apenas rode o programa
 
-Tronco iluminado (python)-----------------------------------------------------------------------------------------
+Tronco iluminado (poligono_iluminado_tronco.py)(python)-----------------------------------------------------------
 
   apenas rode o programa
   
